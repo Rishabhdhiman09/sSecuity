@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.models.User;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jws.soap.SOAPBinding;
@@ -20,6 +21,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{userName}")
     public User getUser(@PathVariable("userName") String userName){
         return userService.getUser(userName);
